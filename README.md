@@ -6,7 +6,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Theme: Touch Grass](https://img.shields.io/badge/Theme-Touch%20Grass-brightgreen.svg)](https://dev.to/challenges/hacktoberfest-week1-2026-10-05)
 [![AI: Gemma](https://img.shields.io/badge/Model-Gemma%202-blue.svg)](https://ai.google.dev/gemma)
-[![Memory: Backboard](https://img.shields.io/badge/Vector%20Memory-Backboard-orange.svg)](https://backboard.io)
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20on%20GitHub%20Pages-success.svg)](https://aditya-prog-bit.github.io/groundfall/)
+
+---
+
+### 🌐 Live Interactive Demo
+👉 **[https://aditya-prog-bit.github.io/groundfall/](https://aditya-prog-bit.github.io/groundfall/)**  
+*Anyone can open and test Groundfall immediately on any device (phone or desktop) with zero installation, zero server required, and 100% on-device client privacy.*
 
 ---
 
