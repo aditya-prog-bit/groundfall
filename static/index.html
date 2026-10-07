@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groundfall — Offline Field Naturalist & Sensory Walk Companion</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20y=%220%22%20width=%22100%22%20height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-top">
+        <div class="logo-area">
+          <div class="logo-icon">🌿</div>
+          <div class="logo-text">
+            <h1>Groundfall <span style="font-size: 0.8rem; font-weight: 500; opacity: 0.8; background: var(--bg-surface-elevated); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--border-color);">HF26 #TouchGrass</span></h1>
+            <p>The Eyes-Up Field Naturalist & Sensory Walk Companion</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="badge badge-green" id="offlineBadge">🟢 100% Backcountry Offline</span>
+          <span class="badge badge-amber" id="gemmaBadge">🧠 Gemma Engine</span>
+          <button class="btn-icon-toggle" id="sunlightToggle" title="Toggle High-Contrast Sunlight Mode">
+            ☀️ Sunlight Mode
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="planTab">🌿 Plan Drift</button>
+        <button class="tab-btn" data-tab="walkTab">🧭 Trail Mode (Eyes-Up)</button>
+        <button class="tab-btn" data-tab="scanTab">🔍 Offline Flora Scanner</button>
+        <button class="tab-btn" data-tab="journalTab">📖 Field Notebook (<span id="notebookCount">2</span>)</button>
+      </nav>
+    </header>
+
+    <!-- TAB 1: PLAN DRIFT -->
+    <main>
+      <section id="planTab" class="tab-content active">
+        <div class="card">
+          <div class="card-title">
+            <span>1. Choose Outdoor Exploration Theme</span>
+          </div>
+          <div class="card-subtitle">
+            Tailors Gemma's sensory prompts to the biome and seasonal conditions outside right now.
+          </div>
+
+          <div class="theme-grid">
+            <div class="theme-card selected" data-theme="foliage">
+              <div class="theme-card-icon">🍁</div>
+              <div class="theme-card-title">Autumn Foliage & Canopy</div>
+              <div class="theme-card-desc">Observe leaf chlorosis, canopy light dappling, bark fissures, and autumn ground decay.</div>
+            </div>
+
+            <div class="theme-card" data-theme="acoustic">
+              <div class="theme-card-icon">🐦</div>
+              <div class="theme-card-title">Bio-Acoustic Listening</div>
+              <div class="theme-card-desc">Tune into high-frequency bird calls, wind friction through conifers, and forest silence.</div>
+            </div>
+
+            <div class="theme-card" data-theme="microbiome">
+              <div class="theme-card-icon">🍄</div>
+              <div class="theme-card-title">Micro-Biome & Soil</div>
+              <div class="theme-card-desc">Discover moss velvet, lichen crusts, soil geosmin scents, and fallen timber decomposers.</div>
+            </div>
+
+            <div class="theme-card" data-theme="movement">
+              <div class="theme-card-icon">🏃</div>
+              <div class="theme-card-title">Sensory Run & Stride</div>
+              <div class="theme-card-desc">Eyes-forward horizon gaze, footstrike acoustics, sun tracking, and rhythmic trail breathing.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>2. Set Walk Duration</span>
+          </div>
+          <div class="card-subtitle">
+            Prompts are strategically spaced out so your phone stays locked in your pocket.
+          </div>
+
+          <div class="duration-pills">
+            <button class="pill-btn" data-duration="5">5 min micro-walk</button>
+            <button class="pill-btn selected" data-duration="15">15 min loop</button>
+            <button class="pill-btn" data-duration="30">30 min drift</button>
+            <button class="pill-btn" data-duration="60">60 min forest trek</button>
+          </div>
+
+          <div style="margin-top: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <button class="btn-primary" id="generatePlanBtn">
+              🧠 Generate Gemma Sensory Drift
+            </button>
+            <span style="font-size: 0.85rem; color: var(--text-muted);" id="engineStatusText">
+              Zero cloud telemetry · Safe for remote backcountry trails
+            </span>
+          </div>
+        </div>
+
+        <!-- Generated Plan Preview -->
+        <div class="card" id="planPreviewCard" style="display: none;">
+          <div class="card-title">
+            <span id="planPreviewTitle">Autumn Foliage Drift (15 min)</span>
+            <span class="badge badge-green" id="planAiSource">Gemma Naturalist Engine</span>
+          </div>
+          <div class="card-subtitle">
+            Preview the sequential tactile cues before tucking your device away:
+          </div>
+
+          <div id="planStepsContainer" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;"></div>
+
+          <button class="btn-primary" id="startWalkFromPlanBtn" style="font-size: 1.05rem; padding: 14px 32px;">
+            🧭 Pocket Phone & Start Walk
+          </button>
+        </div>
+      </section>
+
+      <!-- TAB 2: TRAIL MODE (EYES-UP) -->
+      <section id="walkTab" class="tab-content">
+        <div class="card walk-hero">
+          <div class="eyes-up-status-box" id="eyesUpStatusBox">
+            <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;" id="eyesUpModeLabel">
+              🌿 EYES-UP TRAIL MODE ACTIVE
+            </span>
+            <div class="eyes-up-meter" id="eyesUpPercentageDisplay">100.0%</div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);" id="eyesUpSubtext">
+              Phone in pocket: screen locked or hidden. Screen time counts against your naturalist ratio!
+            </p>
+          </div>
+
+          <div class="walk-timer" id="walkTimerDisplay">00:00</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Target: <span id="targetDurationDisplay">15</span> minutes · Audio cues signal sensory steps
+          </p>
+
+          <!-- Current Step Display -->
+          <div class="walk-instruction-card">
+            <div class="prompt-step-tag" id="currentStepLabel">Current Sensory Observation</div>
+            <div class="prompt-text" id="currentStepText">
+              "Find the single leaf near you with the sharpest transition between green and amber. Hold it up to the sun and examine the vein structure."
+            </div>
+          </div>
+
+          <!-- Bio-Acoustic Spectrogram -->
+          <div style="margin: 20px 0; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 0.85rem; font-weight: 600;">🌿 Bio-Acoustic Environmental Resonance</span>
+              <span style="font-size: 0.8rem; color: var(--accent-green); font-weight: 600;" id="acousticScoreText">
+                Acoustic Green Index: 84% Nature
+              </span>
+            </div>
+            <div class="spectrogram-container">
+              <canvas id="acousticCanvas" width="800" height="90"></canvas>
+              <div class="acoustic-badge-overlay">Auditory Frequency Meter</div>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">
+              Analyzes ambient frequency bands in real-time. High-pitch wind/birds (2-8kHz) earn Tranquility Points; low-frequency engines (<500Hz) are detected.
+            </p>
+          </div>
+
+          <!-- Real-Time Metrics -->
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value" id="statEyesUpTime">00:00</div>
+              <div class="stat-label">Eyes-Up Time (Pocket)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statScreenTime" style="color: var(--accent-amber);">00:00</div>
+              <div class="stat-label">Screen Glances Time</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statGlanceCount">0</div>
+              <div class="stat-label">Unlocks / Glances</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statNextPromptIn">03:45</div>
+              <div class="stat-label">Next Prompt Cue</div>
+            </div>
+          </div>
+
+          <!-- Walk Action Controls -->
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+            <button class="btn-secondary" id="chimeBtn">
+              🔔 Play Gentle Trail Bell
+            </button>
+            <button class="btn-secondary" id="speakPromptBtn">
+              🗣️ Audio Guidance (TTS)
+            </button>
+            <button class="btn-primary" id="endWalkBtn" style="background: var(--accent-rust); color: white;">
+              🏁 Complete Walk & Debrief
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: OFFLINE FLORA SCANNER -->
+      <section id="scanTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">
+            <span>Offline Botanical & Bio-Scanner</span>
+            <span class="badge badge-green">100% On-Device Inference</span>
+          </div>
+          <div class="card-subtitle">
+            Encountered an unknown leaf, mushroom, bark, or seed on the trail? Scan it with zero cell reception.
+          </div>
+
+          <div class="scanner-dropzone" id="scannerDropzone">
+            <div class="dropzone-icon">📷</div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 6px;">Snap or Select Specimen Image</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">
+              Click to capture with camera or choose photo from device
+            </p>
+            <input type="file" id="specimenInput" accept="image/*" style="display: none;">
+            <img id="previewImage" alt="Specimen Preview">
+          </div>
+
+          <!-- Quick specimen picker buttons for testing/simulation -->
+          <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Quick Sample Specimens:</span>
+            <button class="pill-btn" onclick="classifySpecimen('maple')">🍁 Sugar Maple</button>
+            <button class="pill-btn" onclick="classifySpecimen('oak')">🍂 Northern Red Oak</button>
+            <button class="pill-btn" onclick="classifySpecimen('pine')">🌲 White Pine</button>
+            <button class="pill-btn" onclick="classifySpecimen('birch')">🪵 Paper Birch</button>
+            <button class="pill-btn" onclick="classifySpecimen('moss')">🌿 Velvet Moss</button>
+            <button class="pill-btn" onclick="classifySpecimen('fungus')">🍄 Turkey Tail</button>
+          </div>
+
+          <!-- Classification Output Card -->
+          <div class="specimen-card" id="specimenResultCard" style="display: none;">
+            <div class="specimen-header">
+              <div>
+                <span class="specimen-title" id="specimenCommonName">Sugar Maple (Acer saccharum)</span>
+                <span style="display: block; font-size: 0.8rem; color: var(--accent-amber);" id="specimenPhase">
+                  Peak Autumn Senescence
+                </span>
+              </div>
+              <span class="badge badge-green">Verified Offline</span>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+              <strong style="font-size: 0.85rem; color: var(--text-primary);">Foliage & Botanical Morphology:</strong>
+              <p style="font-size: 0.92rem; color: var(--text-secondary); margin-top: 4px;" id="specimenNote">
+                Anthocyanin reds and carotenoid orange pigments visible as chlorophyll degrades.
+              </p>
+            </div>
+
+            <div style="background: rgba(74, 222, 128, 0.08); padding: 12px; border-radius: var(--radius-md); border-left: 3px solid var(--accent-green); margin-bottom: 12px;">
+              <strong style="font-size: 0.85rem; color: var(--accent-green);">Touch Grass Sensory Cue:</strong>
+              <p style="font-size: 0.9rem; color: var(--text-primary); margin-top: 2px;" id="specimenCue">
+                Examine the capillary veins against the sunlight.
+              </p>
+            </div>
+
+            <div>
+              <strong style="font-size: 0.85rem; color: var(--text-primary);">Forest Ecology Role:</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 2px;" id="specimenEcology">
+                Key autumn nutrient cycling species.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: FIELD NOTEBOOK -->
+      <section id="journalTab" class="tab-content">
+        <div class="card">
+          <div class="card-title">
+            <span>Naturalist Field Notebook & Backboard Memory</span>
+            <button class="btn-secondary" id="exportMarkdownBtn" style="font-size: 0.8rem; padding: 6px 14px;">
+              📋 Export to Markdown
+            </button>
+          </div>
+          <div class="card-subtitle">
+            Permanent seasonal observations synthesized by Gemma and stored in Backboard vector memory (.backboard/field_memories.json).
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="memorySearchInput" placeholder="🔍 Search field memories by tree, sound, or trail note..." 
+              style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); padding: 10px 14px; font-size: 0.9rem;">
+          </div>
+
+          <div id="memoriesListContainer">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- DEBRIEF MODAL (Triggered when finishing a walk) -->
+  <div class="modal-overlay" id="debriefModal">
+    <div class="modal-box">
+      <h2 style="font-size: 1.4rem; color: var(--accent-green); margin-bottom: 6px;">
+        🌿 Naturalist Debrief & Sensory Log
+      </h2>
+      <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+        You've returned from the canopy! Before your memories fade, record what you noticed (wind, textures, birds, colors).
+      </p>
+
+      <div style="background: var(--bg-surface-elevated); padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.85rem;">
+        <strong>Walk Metrics:</strong> <span id="modalDuration">15</span> min walk · 
+        <span id="modalEyesUp" style="color: var(--accent-green); font-weight: 700;">98.5%</span> Eyes-Up Ratio · 
+        <span id="modalAcoustic" style="color: var(--accent-amber); font-weight: 700;">84%</span> Acoustic Green Index
+      </div>
+
+      <label for="debriefNotes">Your Field Observations:</label>
+      <textarea id="debriefNotes" rows="4" placeholder="e.g. Found bright crimson maple leaves on the creek trail. Heard a pair of crows calling above the pine canopy. The air smelled of damp autumn earth..."></textarea>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
+        <button class="btn-secondary" id="cancelDebriefBtn">Skip</button>
+        <button class="btn-primary" id="saveDebriefBtn">🧠 Synthesize & Save to Notebook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toastMessage">Walk archived to Field Notebook!</div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+[
+  {
+    "id": "mem-1791397148",
+    "timestamp": 1791397148.788815,
+    "date_str": "Oct 07, 2026 23:49",
+    "title": "The Russet Solitude: Fall Foliage Test",
+    "theme": "foliage",
+    "duration_minutes": 20,
+    "eyes_up_percentage": 97.5,
+    "acoustic_green_index": 85,
+    "notes": "Tested walking along the birch groves. Golden leaves everywhere.",
+    "earned_specimen": "\ud83c\udf41 Sugar Maple",
+    "narrative": "A peaceful autumn excursion into the yellow birch stand.",
+    "tags": [
+      "foliage",
+      "touch-grass",
+      "hf26challenge",
+      "backboard-memory"
+    ]
+  },
+  {
+    "id": "mem-1791397148",
+    "timestamp": 1791397148.7871473,
+    "date_str": "Oct 07, 2026 23:49",
+    "title": "The Verdant Solitude: Micro-Biome & Soil Grounding",
+    "theme": "microbiome",
+    "duration_minutes": 15,
+    "eyes_up_percentage": 99.1,
+    "acoustic_green_index": 89,
+    "notes": "Observed turkey tail polypore on fallen birch. High moss moisture.",
+    "earned_specimen": "\ud83c\udf30 Oak Acorn",
+    "narrative": "During this 15-minute foray into the outdoor canopy, the screen was set aside for 99.1% of the excursion. The acoustic landscape registered an ambient green index of 89%, marking an encounter with natural environmental resonance. \n\nField Observation:\n\"Observed turkey tail polypore on fallen birch. High moss moisture.\"\n\nNaturalist takeaway: In late autumn, trees gradually shed their photosynthetic load to protect their cellular core from freeze. By stepping away from digital displays and walking among the branches, the nervous system mirrors the forest's seasonal deceleration.",
+    "tags": [
+      "microbiome",
+      "touch-grass",
+      "hf26challenge",
+      "backboard-memory"
+    ]
+  },
+  {
+    "id": "mem-001",
+    "timestamp": 1791224345.6466925,
+    "date_str": "Oct 5, 2026",
+    "title": "The Amber Drift: Autumn Foliage & Canopy Drift",
+    "theme": "foliage",
+    "duration_minutes": 20,
+    "eyes_up_percentage": 98.2,
+    "acoustic_green_index": 82,
+    "notes": "Noticed brilliant scarlet maples along the northern ridge. High wind through the upper branches sounded like ocean surf.",
+    "earned_specimen": "\ud83c\udf41 Sugar Maple",
+    "tags": [
+      "fall-foliage",
+      "wind-rustle",
+      "touch-grass",
+      "backboard-memory"
+    ]
+  },
+  {
+    "id": "mem-002",
+    "timestamp": 1791310745.6466968,
+    "date_str": "Oct 6, 2026",
+    "title": "The Whispering Stride: Bio-Acoustic & Avian Listening",
+    "theme": "acoustic",
+    "duration_minutes": 15,
+    "eyes_up_percentage": 96.0,
+    "acoustic_green_index": 88,
+    "notes": "Followed a family of black-capped chickadees through a hemlock grove. Found undisturbed damp moss.",
+    "earned_specimen": "\ud83e\udeb6 Blue Jay Down",
+    "tags": [
+      "birding",
+      "acoustics",
+      "hemlock",
+      "touch-grass",
+      "backboard-memory"
+    ]
+  }
+]
