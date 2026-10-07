@@ -583,28 +583,38 @@ function handleFileSelect(e) {
   reader.readAsDataURL(file);
 }
 
+const CLIENT_BOTANY = {
+  maple: { common_name: "Sugar Maple (Acer saccharum)", season_phase: "Peak Autumn Senescence", foliage_note: "Brilliant anthocyanin red and carotenoid amber hues. Veins retain sugars before winter abscission.", touch_grass_cue: "Gently hold the leaf blade up to the sun to see the capillary network delivering nutrients to the stem.", ecology: "Provides crucial winter bark forage for deer and nesting cavities for screech owls." },
+  oak: { common_name: "Northern Red Oak (Quercus rubra)", season_phase: "Late Autumn Mast Seeding", foliage_note: "Pointed lobes with bristle tips turning deep russet-brown. Tannins protect leaves from early microbial decay.", touch_grass_cue: "Look at the ground beneath the canopy for acorn caps. Heavy acorn production indicates a 'mast year'.", ecology: "Key keystone species supporting over 500 species of lepidoptera and forest birds." },
+  pine: { common_name: "Eastern White Pine (Pinus strobus)", season_phase: "Evergreen Resin Dormancy", foliage_note: "Soft needles in bundles of five. Releases aromatic alpha-pinene terpenes that reduce cortisol in humans.", touch_grass_cue: "Crush a fallen brown needle between your fingertips and inhale the crisp resinous aroma.", ecology: "Acts as windbreaks, preserving sub-canopy microclimates in winter storms." },
+  birch: { common_name: "Paper Birch (Betula papyrifera)", season_phase: "Autumn Defoliation", foliage_note: "Horizontal lenticels on chalky white exfoliating bark that curls into paper-thin waterproof scrolls.", touch_grass_cue: "Feel the papery curls without peeling them off live wood. Notice how smooth the outer bark feels.", ecology: "Pioneer species stabilizing disturbed soils and riverbanks." },
+  moss: { common_name: "Velvet Sheet Moss (Hypnum cupressiforme)", season_phase: "Hydrated Micro-Colony", foliage_note: "Non-vascular bryophyte absorbing moisture and nutrients directly from autumn dew and rainfall.", touch_grass_cue: "Place the palm of your hand against the moss patch. Feel the natural cooling thermal insulation.", ecology: "Filters rainwater, prevents topsoil erosion, and hosts thousands of micro-invertebrates per square foot." },
+  fungus: { common_name: "Turkey Tail / Bracket Polypore (Trametes versicolor)", season_phase: "Active Decomposer Phase", foliage_note: "Concentric bands of brown, tan, and cream velvety zones growing horizontally off fallen timber.", touch_grass_cue: "Touch the stiff, leathery concentric ridges. It breaks down tough lignin that almost nothing else can digest.", ecology: "Primary forest recycler, returning minerals back to the subsoil." }
+};
+
 async function classifySpecimen(label) {
+  let b = CLIENT_BOTANY[label] || CLIENT_BOTANY.maple;
   try {
     const res = await fetch("/api/flora/identify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ label_hint: label })
     });
-
     if (res.ok) {
       const data = await res.json();
-      const b = data.botany;
-      specimenResultCard.style.display = "block";
-      document.getElementById("specimenCommonName").textContent = b.common_name;
-      document.getElementById("specimenPhase").textContent = b.season_phase;
-      document.getElementById("specimenNote").textContent = b.foliage_note;
-      document.getElementById("specimenCue").textContent = b.touch_grass_cue;
-      document.getElementById("specimenEcology").textContent = b.ecology;
-      specimenResultCard.scrollIntoView({ behavior: "smooth" });
+      b = data.botany;
     }
   } catch (e) {
-    console.log("Flora scanner error:", e);
+    // Graceful offline fallback
   }
+
+  specimenResultCard.style.display = "block";
+  document.getElementById("specimenCommonName").textContent = b.common_name;
+  document.getElementById("specimenPhase").textContent = b.season_phase;
+  document.getElementById("specimenNote").textContent = b.foliage_note;
+  document.getElementById("specimenCue").textContent = b.touch_grass_cue;
+  document.getElementById("specimenEcology").textContent = b.ecology;
+  specimenResultCard.scrollIntoView({ behavior: "smooth" });
 }
 
 // Toast helper
